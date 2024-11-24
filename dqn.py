@@ -74,6 +74,8 @@ class DQNAgent:
     self.memory.add((state, action, reward, next_state, done))
 
   def replay_short_memory(self, state, action, reward, next_state, done):
+      # Learn from a single state
+
       q_values = self.model.predict(state[np.newaxis, :], verbose=0)
       q_next_values = self.target_model.predict(next_state[np.newaxis, :], verbose=0)
 
@@ -87,6 +89,8 @@ class DQNAgent:
   def replay_long_memory(self):
       if self.memory.size() < self.batch_size:
           return
+      
+      # Sample a batch of experiences from the memory and learn from them
       experiences = self.memory.sample(self.batch_size)
       states, actions, rewards, next_states, dones = zip(*experiences)
 
