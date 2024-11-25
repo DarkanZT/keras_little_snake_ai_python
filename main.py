@@ -4,7 +4,7 @@ from snake_env import SnakeEnv
 from helper import plot
 from keras import models
 
-NUM_EPISODES = 1000
+NUM_EPISODES = 2000
 
 def train_dqn(epochs=NUM_EPISODES, save_path="best_model.keras"):
     plot_scores = []
@@ -82,7 +82,6 @@ if __name__ == "__main__":
 
   state = env.reset()
   done = False
-  total_score = 0
 
   while not done:
     q_values = trained_model.predict(state[np.newaxis, :], verbose=0)
@@ -92,7 +91,7 @@ if __name__ == "__main__":
 
     state = next_state
     
-    total_score += info["score"]
+    total_score = info["score"]
     env.render()  # Watch the snake in action
 
   print("Total Score in Evaluation:", total_score)
