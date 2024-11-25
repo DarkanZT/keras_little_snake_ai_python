@@ -40,7 +40,7 @@ class SnakeEnv(Env):
         self.steps_taken += 1
 
         if action == 1: # Turn left
-            self.direction = self._turn_right(self.direction)
+            self.direction = self._turn_left(self.direction)
         elif action == 2: # Turn right
             self.direction = self._turn_right(self.direction)
         
@@ -158,7 +158,9 @@ class SnakeEnv(Env):
         return head in self.snake or is_outside_map
 
     def _turn_left(self, direction):
-        return {'UP': 'LEFT', 'LEFT': 'DOWN', 'DOWN': 'RIGHT', 'RIGHT': 'UP'}[direction]
+        turn_left_map = {'UP': 'LEFT', 'LEFT': 'DOWN', 'DOWN': 'RIGHT', 'RIGHT': 'UP'}
+        return turn_left_map[direction]
 
     def _turn_right(self, direction):
-        return {'UP': 'RIGHT', 'RIGHT': 'DOWN', 'DOWN': 'LEFT', 'LEFT': 'UP'}[direction]
+        turn_right_map = {'UP': 'RIGHT', 'RIGHT': 'DOWN', 'DOWN': 'LEFT', 'LEFT': 'UP'}
+        return turn_right_map[direction]
