@@ -45,7 +45,7 @@ class SnakeEnv(Env):
             self.direction = self._turn_right(self.direction)
         
         self._move()
-        reward = 0
+        reward = -0.01
 
         if self._check_collision():
             self.done = True
