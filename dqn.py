@@ -2,8 +2,8 @@ import keras
 import random
 import numpy as np
 from keras import layers
-from collections import deque
 from helper import choose_action
+from replay_buffer import ReplayBuffer
 
 GAMMA = 0.99  # Discount factor
 EPSILON = 1.0  # Initial exploration rate
@@ -13,19 +13,6 @@ BATCH_SIZE = 50
 BUFFER_SIZE = 100
 TARGET_UPDATE_FREQ = 10  # Frequency of updating the target network
 LR = 0.001
-
-class ReplayBuffer:
-    def __init__(self, max_size):
-        self.buffer = deque(maxlen=max_size)
-
-    def add(self, experience):
-        self.buffer.append(experience)
-
-    def sample(self, batch_size):
-        return random.sample(self.buffer, batch_size)
-
-    def size(self):
-        return len(self.buffer)
 
 class DQNAgent:
   def __init__(self, state_size, action_size, gamma=GAMMA, lr=LR, batch_size=BATCH_SIZE, memory_size=BUFFER_SIZE, target_update_freq=TARGET_UPDATE_FREQ):
