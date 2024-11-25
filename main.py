@@ -1,7 +1,6 @@
-import numpy as np
 from dqn import DQNAgent
 from snake_env import SnakeEnv
-from helper import plot
+from helper import plot, save_plot, choose_action
 from keras import models
 
 NUM_EPISODES = 2000
@@ -69,9 +68,9 @@ def train_dqn(epochs=NUM_EPISODES, save_path="best_model.keras"):
 
         print(f"Episode {epoch + 1}/{epochs}: Total Reward = {total_reward}: Score {score}: Epsilon = {agent.epsilon}")
 
-    # Save the trained model 
     # env.close()
-
+    # Save the plot only after all games are finished
+    save_plot("final_plot.png")
 
 if __name__ == "__main__":
   train_dqn()
@@ -84,8 +83,7 @@ if __name__ == "__main__":
   done = False
 
   while not done:
-    q_values = trained_model.predict(state[np.newaxis, :], verbose=0)
-    action = np.argmax(q_values[0])
+    action = choose_action(trained_model, state)
 
     next_state, reward, done, info = env.step(action)
 

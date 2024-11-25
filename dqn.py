@@ -3,6 +3,7 @@ import random
 import numpy as np
 from keras import layers
 from collections import deque
+from helper import choose_action
 
 GAMMA = 0.99  # Discount factor
 EPSILON = 1.0  # Initial exploration rate
@@ -67,8 +68,7 @@ class DQNAgent:
     if np.random.rand() <= self.epsilon:
       return random.randrange(self.action_size)
     
-    q_values = self.model.predict(state[np.newaxis, :], verbose=0)
-    return np.argmax(q_values[0])
+    return choose_action(self.model, state);
   
   def remember(self, state, action, reward, next_state, done):
     self.memory.add((state, action, reward, next_state, done))

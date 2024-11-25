@@ -1,6 +1,7 @@
-# From https://github.com/patrickloeber/snake-ai-pytorch/blob/main/helper.py
+# Mostly from https://github.com/patrickloeber/snake-ai-pytorch/blob/main/helper.py
 
 import matplotlib.pyplot as plt
+import numpy as np
 from IPython import display
 
 plt.ion()
@@ -19,3 +20,11 @@ def plot(scores, mean_scores):
     plt.text(len(mean_scores)-1, mean_scores[-1], str(mean_scores[-1]))
     plt.show(block=False)
     plt.pause(.1)
+
+def save_plot(save_path):
+    plt.savefig(save_path, format="png")  # Save as PNG
+    print(f"Plot saved as '{save_path}'.")
+
+def choose_action(model, state):
+  q_values = model.predict(state[np.newaxis, :], verbose=0)
+  return np.argmax(q_values[0])
